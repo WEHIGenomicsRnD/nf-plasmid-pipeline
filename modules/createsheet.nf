@@ -26,3 +26,33 @@ process CreateSampleSheet {
         $args
     """
 }
+
+
+
+process MergeQCStats {
+    label = 'MergeQCStats'
+
+    publishDir params.outdir, mode: 'copy'
+
+    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:d17f0440b85f9b65'
+
+    input:
+    val(batchnum)
+    path(infile)
+
+    output:
+    path "*.txt", emit: mergedqc_ch
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args ?: ''
+
+    """
+    collate_stats.py \
+        ${infile}
+
+    cp merged_stats.txt ${batchnum}.QCFile.txt
+    """
+}

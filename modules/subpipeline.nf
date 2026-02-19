@@ -74,15 +74,21 @@ process UnzipFiles{
 
 process LaunchClonePipe{
     label "Clone_Pipeline"
+  
+    tag "${ssheet.baseName}-${num}"
 
     input:
     tuple val(subdir) , path(ssheet), val(num), val(fpath)
+
+    output:
+    path "*sample_QC.txt", emit: qcfile_ch 
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
+    def sname = "${ssheet.baseName}-${num}"
 
     """
 
@@ -95,8 +101,10 @@ process LaunchClonePipe{
          --db_directory ${params.db_dir} \
          --override_basecaller_cfg ${params.model} \
          -c /stornext/Home/data/allstaff/g/gupta.i/Plasmid-pipeline/slurm_plasmid.config \
-         -profile slurm \
+ 	       -profile slurm \
          $args
+
+     cp ${subdir}/result${num}/sample_QC.txt ${sname}-sample_QC.txt
 
     """
 }

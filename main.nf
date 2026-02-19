@@ -3,6 +3,7 @@
 nextflow.enable.dsl = 2
 
 include { CreateSampleSheet } from './modules/createsheet.nf'
+include { MergeQCStats } from './modules/createsheet.nf'
 include  { LaunchClonePipe   } from './modules/subpipeline.nf'
 include  { UnpackFastq   } from './modules/subpipeline.nf'
 include  { UnzipFiles   } from './modules/subpipeline.nf'
@@ -67,7 +68,11 @@ workflow {
 
      ssheet_ch.view()
 
-     LaunchClonePipe(ssheet_ch)
+     qcinput_ch = LaunchClonePipe(ssheet_ch).qcfile_ch.collect()
+
+     Channel.fromPath("${params.outdir}/*Pl*id_Batch*.txt" ,checkIfExists: true)
+            .map{f -> f.baseName}.set{batchnum}
+     MergeQCStats(batchnum, qcinput_ch)
 
      if(params.handover) {
           Channel.fromPath("${params.outdir}/*Pl*id_Batch*.txt" ,checkIfExists: true)
