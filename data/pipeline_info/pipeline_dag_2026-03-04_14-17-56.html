@@ -1,0 +1,82 @@
+<!--
+  ~ Copyright 2013-2024, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v1["fpath"]
+    v2["outpath"]
+    v5["outpath"]
+    v11["Channel.fromPath"]
+    v13["fpath"]
+    end
+    subgraph NFCORE_PLASMIDPIPELINE
+    subgraph PLASMIDPIPELINE
+    v3([UnzipFiles])
+    v6([CreateSampleSheet])
+    v14([UnpackFastq])
+    v22([LaunchClonePipe])
+    v25([MergeQCStats])
+    v4(( ))
+    v8(( ))
+    v9(( ))
+    v12(( ))
+    v16(( ))
+    v23(( ))
+    end
+    end
+    subgraph " "
+    v10[" "]
+    v21[" "]
+    v26["multiqc_report"]
+    v28["versions"]
+    end
+    v1 --> v3
+    v2 --> v3
+    v3 --> v6
+    v3 --> v4
+    v5 --> v6
+    v6 --> v4
+    v6 --> v8
+    v6 --> v9
+    v6 --> v16
+    v9 --> v10
+    v11 --> v12
+    v13 --> v14
+    v12 --> v14
+    v14 --> v4
+    v14 --> v16
+    v16 --> v21
+    v16 --> v22
+    v22 --> v4
+    v22 --> v23
+    v8 --> v25
+    v23 --> v25
+    v25 --> v26
+    v25 --> v4
+    v4 --> v28
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, maxTextSize: Number.MAX_SAFE_INTEGER, maxEdges: Number.MAX_SAFE_INTEGER });
+</script>
+</body>
+</html>
