@@ -1,0 +1,56 @@
+{
+    "Plasmid - result": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "20260212_Plasmid_Batch12.xlsx:md5,c06014eab9ff9d332ebd41ba7edcf324"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,a6bbf9f4d60b6769053075fea49b5e0a"
+                ],
+                "filepath": [
+                    [
+                        "20260212_Plasmid_Batch12.xlsx:md5,c06014eab9ff9d332ebd41ba7edcf324"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,a6bbf9f4d60b6769053075fea49b5e0a"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-17T13:54:11.447185817",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    },
+    "Plasmid - result - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "20260212_Plasmid_Batch12.xlsx:md5,c06014eab9ff9d332ebd41ba7edcf324"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,eb8077ea8e0af027926f0e427c17dda1"
+                ],
+                "filepath": [
+                    [
+                        "20260212_Plasmid_Batch12.xlsx:md5,c06014eab9ff9d332ebd41ba7edcf324"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,eb8077ea8e0af027926f0e427c17dda1"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-17T13:57:55.52846451",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    }
+}

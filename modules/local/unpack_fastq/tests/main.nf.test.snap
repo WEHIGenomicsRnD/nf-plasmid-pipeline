@@ -1,0 +1,60 @@
+{
+    "Plasmid - result": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    
+                ],
+                "fastq_path": [
+                    
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-18T11:07:07.769639667",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    },
+    "Plasmid - result - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        [
+                            [
+                                "test.fastq.gz:md5,1f13b3446c96de6cf8c64f856593b6ca"
+                            ]
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d98b60f5cbeeb479a22da35cb995f463"
+                ],
+                "fastq_path": [
+                    [
+                        [
+                            [
+                                "test.fastq.gz:md5,1f13b3446c96de6cf8c64f856593b6ca"
+                            ]
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d98b60f5cbeeb479a22da35cb995f463"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-18T11:10:57.336845072",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    }
+}

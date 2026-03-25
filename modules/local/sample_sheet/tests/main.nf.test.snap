@@ -1,0 +1,60 @@
+{
+    "CreateSampleSheet": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    
+                ],
+                "csv_ch": [
+                    
+                ],
+                "plasmidtxt_ch": [
+                    
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-18T12:05:18.016731148",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    },
+    "CreateSampleSheet - stub": {
+        "content": [
+            {
+                "0": [
+                    "null.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    "null.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "2": [
+                    "versions.yml:md5,ae55c1cbabd3d7948a9f4a8d734e349a"
+                ],
+                "csv_ch": [
+                    "null.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "plasmidtxt_ch": [
+                    "null.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions": [
+                    "versions.yml:md5,ae55c1cbabd3d7948a9f4a8d734e349a"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-18T12:05:43.996214478",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    }
+}
