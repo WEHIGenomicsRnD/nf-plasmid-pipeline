@@ -19,24 +19,23 @@ process UnpackFastq{
       mkdir -p ${fpath}/extracted_tar
 
       if [ ! -L ${fpath}/*fastq_pass.tar ];then
-         ln -s ${fpath}/fastq/*fastq_pass.tar ${fpath}
+         ln -s ${fpath}/fastq/*fastq_pass.tar .
       fi
 
-      tar -xvf ${fpath}/*_fastq_pass.tar -C ${fpath}/extracted_tar/
+      tar -xvf *fastq_pass.tar -C ${fpath}/extracted_tar/
    fi
 
    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        tar: \$(tar --version | sed 's/tar (GNU tar)//g')
-    END_VERSIONS
-    """
+   "${task.process}":
+       tar: \$(tar --version | sed 's/tar (GNU tar)//g')
+   END_VERSIONS
+   """
 
-    stub:
-    """
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        tar: \$(tar --version | sed 's/tar (GNU tar)//g')
-    END_VERSIONS
+   stub:
+   """
+   cat <<-END_VERSIONS > versions.yml
+   "${task.process}":
+       tar: \$(tar --version | sed 's/tar (GNU tar)//g')
+   END_VERSIONS
     """
 }

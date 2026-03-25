@@ -33,6 +33,7 @@ workflow PLASMIDPIPELINE {
 
     ch_versions = Channel.empty()
 
+    if(params.handover == false){
     if (!inpfile.isDirectory() ){
         if(inpfile.name.endsWith('.zip') || inpfile.name.endsWith('.tar') ||  inpfile.name.endsWith('.tar.gz')){
            inpath_ch = UnzipFiles(inpfile, params.outdir).filepath
@@ -92,9 +93,10 @@ workflow PLASMIDPIPELINE {
      // Channel for merging QC stats //
      ch_qc = MergeQCStats(batchnum, qcinput_ch).mergedqc_ch
      ch_versions = ch_versions.mix(MergeQCStats.out.versions)
-
-
-     if(params.handover) {
+     }
+     else if(params.handover) {
+         ch_qc = Channel.fromPath("${params.outdir}/mergeqcstats/merged_stats.txt" ,checkIfExists: true)
+         plasmid_res_ch = Channel.fromPath("${params.outdir}/createsamplesheet/*Pl*id_Batch*.txt" ,checkIfExists: true)
          plasmid_res_ch
                  .map { file ->
                         def batch = (file.name =~ /(Batch\d+)/)[0][1]
@@ -109,17 +111,17 @@ workflow PLASMIDPIPELINE {
                  .map { row ,batch, rdate ->
                    if (row[0].trim() != 'Researcher Name') {
                       def email = row[1].split('@')[0]
-                      tuple(row[0], email, row[2], batch, rdate)
+                      tuple(email, row[2], batch, rdate)
                     }
                   }.filter { tup ->
-                       sel_users.any{u -> tup[3].contains(u)}
+                       sel_users.any{u -> tup[1].contains(u)}
                   }.view()
 
      }
 
      emit:
-     mergedqc_file = ch_qc
-     versions       = ch_versions                 // channel: [ path(versions.yml) ]
+       mergedqc_file = ch_qc
+//     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
 
 /*

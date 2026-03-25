@@ -46,7 +46,7 @@ def process_samplesheet(inp_sheet,ref_folder):
         ss = pd.read_excel(ref_folder+"/"+inp_sheet, skiprows=1)
 
     ss=ss.dropna(subset=['Researcher Name'])
-    required_cols = ['Researcher Name', 'Barcode', 'Sample ID', 'Size', 'Reference File Name']
+    required_cols = ['Researcher Name', 'Barcode', 'Sample ID', 'Size', 'Reference File Name','QC method']
     missing_cols = [col for col in required_cols if col not in ss.columns]         ## Checking for missing column ##
 
     if missing_cols:
@@ -87,7 +87,7 @@ def process_samplesheet(inp_sheet,ref_folder):
            results['error'].append(f"Reference file - {refer} doesnot exists! Please check the filename")
 
    # print(ss.loc[ss.Researcher == "Ozaydin"])
-    new_row_names = {'Barcode': 'barcode', 'Sample ID': 'alias', 'Size': 'approx_size', 'Reference File Name': 'full_reference'}           # rename rows
+    new_row_names = {'Barcode': 'barcode', 'Sample ID': 'alias', 'Size': 'approx_size', 'Reference File Name': 'full_reference', 'QC method' : 'qc_method' }           # rename rows
     ss = ss.rename(columns=new_row_names)
 
     for researcher in df_unique['Researcher'].values:
@@ -95,13 +95,13 @@ def process_samplesheet(inp_sheet,ref_folder):
        outfile = f'{date}_{uid}.csv'
 
        if (ss.loc[ss.Researcher == researcher, 'full_reference'] == '').all():
-           write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size']],researcher,outfile)
+           write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
        else:
            if len(ss.loc[(ss.Researcher == researcher) & (ss.full_reference != '')]):
-               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference != ''), ['barcode', 'alias', 'approx_size','full_reference']],researcher,outfile)
+               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference != ''), ['barcode', 'alias', 'approx_size','full_reference','qc_method']],researcher,outfile)
            if len(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == '')]):
                outfile = f'{date}_{researcher}_withoutref.csv'
-               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size']],researcher,outfile)
+               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
 
     if int(len(set(results['error']))) >=1:
         line="\n".join(set(results['error']))

@@ -4,7 +4,7 @@ process HandOver{
    publishDir params.outdir, mode: 'copy'
 
    input:
-   tuple val(name), val(researcher), val(resfolder), val(mail), val(batch), val(rundate)
+   tuple val(mail), val(resfolder), val(batch), val(rundate)
 
    output:
    path  "versions.yml"     , emit: versions
@@ -14,10 +14,10 @@ process HandOver{
    def handover_path = params.handover_path ? params.handover_path : ""
 
    """
-    rsync -av ${rundate}_${researcher}_v1.8.0/${resfolder}/* ${handover_path}/${mail}_${rundate}-Plasmid${batch}/
-    chmod 700 ${handover_path}/${mail}_${rundate}-Plasmid${batch}/
-    tar cvzf ${rundate}_${researcher}_v1.8.0.tar.gz ${rundate}_${researcher}_v1.8.0/${resfolder}/
-    rsync -av ${rundate}_${researcher}_v1.8.0.tar.gz /stornext/Projects/promethion/promethion_access/lab_bowden/G000309_plasmid-sequencing/long_term/analysis/
+   echo "rsync -av ${rundate}_${mail}_v1.8.0/${resfolder}/* ${handover_path}/${mail}_${rundate}-Plasmid${batch}/"
+   echo "chmod 700 ${handover_path}/${mail}_${rundate}-Plasmid${batch}/"
+   echo "tar cvzf ${rundate}_${mail}_v1.8.0.tar.gz ${rundate}_${mail}_v1.8.0/${resfolder}/"
+   echo "rsync -av ${rundate}_${mail}_v1.8.0.tar.gz /stornext/Projects/promethion/promethion_access/lab_bowden/G000309_plasmid-sequencing/long_term/analysis/"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
