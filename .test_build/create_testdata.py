@@ -13,7 +13,7 @@ def download_test():
     os.system(f"tar -cvf {test_path}/fastq/gdj634_fastq_pass.tar test/gdj634/fastq_pass/barcode01/*.gz")
 
 def create_ssheet():
-    df = pd.DataFrame({'Researcher Name': ['test'], 'Researcher Email': ['test.g@test.com'], 'Barcode':['01'], 'Sample ID': ['PEV2'], 'Size' : [2000] ,'Reference File Name': [''], 'Circular' : ['Yes']})
+    df = pd.DataFrame({'Researcher Name': ['test'], 'Researcher Email': ['test.g@test.com'], 'Barcode':['01'], 'Sample ID': ['PEV2'], 'Size' : [2000] ,'Reference File Name': [''], 'Circular' : ['Yes'] ,'QC method' : ['Qubit']})
 
     df.to_excel(f"20260212_Plasmid_Batch12.xlsx", startrow=1, index=False)
     os.system(f"zip -r {test_path}/Batchtest.zip *.xlsx")

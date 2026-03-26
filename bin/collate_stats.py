@@ -31,7 +31,7 @@ def merge_files(cfile,result_df):
    if len(result_df) == 0:
       result_df = df
    else:
-      onval=['SampleId','Size(User derfined)','Size(Raw fastq)']
+      onval=['SampleId','QC method','Size(User derfined)','Size(Raw fastq)']
       result_df = pd.merge(result_df, df, how='outer', on=onval)
 
    result_df.rename(columns={result_df.columns[-1]: f"{sname}-{num}-Status"}, inplace=True)
@@ -84,8 +84,8 @@ def main():
        new_df = groups[grp].reset_index(drop=True)
 
 
-       run_cols = new_df.columns[[4,6,8]]
-       cols_to_int = new_df.columns[[3, 5,7]]
+       run_cols = new_df.columns[[5,7,9]]
+       cols_to_int = new_df.columns[[2, 3,4]]
        new_df[cols_to_int] = new_df[cols_to_int].astype(int)
 
        styled_df = (

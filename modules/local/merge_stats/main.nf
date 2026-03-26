@@ -10,9 +10,9 @@ process MergeQCStats {
     path(infile)
 
     output:
-    path "*.txt", emit: mergedqc_ch
-    path "${batchnum}.html", emit:html_ch
-    path  "versions.yml"    , emit: versions
+    path "${batchnum}.QCFile.txt" ,  emit: mergedqc_ch
+    path "${batchnum}.html"       ,  emit:html_ch
+    path  "versions.yml"          ,  emit: versions
 
     when:
     task.ext.when == null || task.ext.when
