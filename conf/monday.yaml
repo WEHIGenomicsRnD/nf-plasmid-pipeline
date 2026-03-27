@@ -1,0 +1,5 @@
+apikey: <monday_api_key>
+  cc: "wang.ji@wehi.edu.au -c cmero.ma@wehi.edu.au -c swilcox@wehi.edu.au -c gupta.i@wehi.edu.au -c mather.l@wehi.edu.au -c macraild.s@wehi.edu.au"
+    #  cc: "gupta.i@wehi.edu.au -c cmero.ma@wehi.edu.au"
+  from: "gupta.i@wehi.edu.au"
+  apiUrl: "https://api.monday.com/v2"

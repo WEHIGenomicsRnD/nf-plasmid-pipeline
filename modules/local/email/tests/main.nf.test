@@ -1,15 +1,16 @@
 nextflow_process {
 
-    name "Test Merge Stats"
+    name "Test SendEmail"
     script "../main.nf"
-    process "MergeQCStats"
+    process "SendEmail"
 
     test("Plasmid - result") {
 
         when {
             process {
                 """
-                input[0] = file(params.modules_testdata_base_path + "genomics/sarscov2/genome/genome.gtf", checkIfExists: true)
+                input[0] = Channel.of(file(params.pipelines_testdata_base_path + '/createsamplesheet/20260212_Plasmid_Batch12.txt', checkIfExists: true))
+                input[1] = params.pipelines_testdata_base_path
                 """
             }
         }
@@ -29,7 +30,8 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = file(params.modules_testdata_base_path + "genomics/sarscov2/genome/genome.gtf", checkIfExists: true)
+                input[0] = Channel.of(file(params.pipelines_testdata_base_path + '/createsamplesheet/20260212_Plasmid_Batch12.txt', checkIfExists: true))
+                input[1] = params.pipelines_testdata_base_path
                 """
             }
         }

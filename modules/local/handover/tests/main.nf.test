@@ -8,7 +8,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = Channel.of(["test.g", result1, Batch12, 20260212 ])
+                input[0] = Channel.of(["test.g", "result1", "Batch12", "20260212" ])
                 """
             }
         }
@@ -28,7 +28,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = input[0] = Channel.of(["test.g", result1, Batch12, 20260212 ])
+                input[0] = input[0] = Channel.of(["test.g", "result1", "Batch12", "20260212" ])
                 """
             }
         }

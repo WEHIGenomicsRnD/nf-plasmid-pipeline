@@ -1,0 +1,36 @@
+{
+    "Plasmid - result": {
+        "content": [
+            {
+                "0": [
+                    "versions.yml:md5,c595011d6c4108123e9363003a50a680"
+                ],
+                "versions": [
+                    "versions.yml:md5,c595011d6c4108123e9363003a50a680"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-27T11:46:24.484823684",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    },
+    "Plasmid - result - stub": {
+        "content": [
+            {
+                "0": [
+                    "versions.yml:md5,c595011d6c4108123e9363003a50a680"
+                ],
+                "versions": [
+                    "versions.yml:md5,c595011d6c4108123e9363003a50a680"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-27T11:46:51.165869854",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    }
+}

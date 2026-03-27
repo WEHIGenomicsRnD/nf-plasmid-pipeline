@@ -1,8 +1,7 @@
-#!/bin/python
+#!/usr/bin/env python
 
 import os
 import argparse
-import logging
 import pandas as pd
 import numpy as np
 import zipfile
@@ -11,23 +10,22 @@ import yaml
 import requests
 from datetime import datetime, timedelta
 
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 
 parser = argparse.ArgumentParser()
 #parser.add_argument('-f','--file', help='Sample sheet file')
 parser.add_argument('-r','--resname', help='Researcher Name')
-parser.add_argument('-i','--inpfile', help='Input Excel file')
+parser.add_argument('-i','--inpfile', help='Input Text file')
 parser.add_argument('-p','--resdir', help='Analysis Result dir')
-parser.add_argument('--only_copy', default=False, action=argparse.BooleanOptionalAction)
+parser.add_argument('-c','--config', help='Config File')
 
 args = parser.parse_args()
 #inp_sheet=args.file
 resname=args.resname.strip().split(" ")
 inp_sheet=args.inpfile
-only_copy=args.only_copy
 resdir=args.resdir
+mon_config=args.config
 
-stream = open('monday.yaml', 'r')
+stream = open(mon_config, 'r')
 cnfg = yaml.load(stream, yaml.SafeLoader)
 
 apikey = cnfg['apikey']
@@ -67,8 +65,8 @@ with open (inp_sheet) as infile:
             continue
         line=f.split("\t")
         fname=line[0].split(" ")[0]
-        lname=line[0].split(" ")[-1]
-        l[lname]=[line[1],fname,line[2]]
+        rname=line[1].split("@")[0]
+        l[rname]=[line[1],fname,line[2]]
 
 
 
@@ -112,21 +110,9 @@ def send_email():
       cmd=f"echo '{msg}' | mailx {att} -r {ufrom} {bcc} -s '{subj}' -c {cc} {to}"
 #      cmd=f"echo '{msg}' | mailx {att} -r {ufrom} -s '{subj}' -c {cc} {to}"
       print(cmd)
-      os.system(cmd)
+#      os.system(cmd)
 
-
-def copy_results():
-    for res in resname:
-        to=l[res][0].strip().split("@")[0]
-        resfolder=l[res][2]
-        cmd=f"sh copy_plasmid.sh {res} {pdate} {to} {resdir} {resfolder}"
-        print(cmd)
-        os.system(cmd)
 
 
 if __name__ == "__main__":
-    if only_copy:
-        copy_results()
-    else:
-        copy_results()
         send_email()

@@ -1,0 +1,26 @@
+{
+    "Plasmid - result": {
+        "content": [
+            [
+                "versions.yml:md5,7a1d26bbd71b0058352453fa7e56b680"
+            ]
+        ],
+        "timestamp": "2026-03-26T11:35:53.878938306",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    },
+    "Plasmid - result - stub": {
+        "content": [
+            [
+                "versions.yml:md5,4683ede16d169d7167fae86162287da4"
+            ]
+        ],
+        "timestamp": "2026-03-26T11:36:29.979795621",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "24.10.5"
+        }
+    }
+}

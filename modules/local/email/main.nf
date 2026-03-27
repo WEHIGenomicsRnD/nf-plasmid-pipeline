@@ -1,17 +1,15 @@
 process SendEmail {
-    label = 'SendEmail'
+    label 'SendEmail'
 
-    publishDir params.outdir, mode: 'copy'
 
-    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:d17f0440b85f9b65'
+//    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:825ddd073161283c'
+    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:4f750799cf79af84'
 
     input:
     val infile
     val outpath
 
     output:
-    path "*.csv", emit: csv_ch
-    path "*.txt"
     path  "versions.yml"   , emit: versions
 
     when:
@@ -19,15 +17,16 @@ process SendEmail {
 
     script:
     def args = task.ext.args ?: ''
-    def only_copy = params.only_copy ? "--only_copy" : ""
     def res_name  = params.res_name ? params.res_name : ""
+    def mon_yaml  = params.config_yaml ? params.config_yaml : ""
 
     """
+
     send_email_v2.py \
         --resname ${res_name} \
         --inpfile ${infile} \
         --resdir ${outpath} \
-        $only_copy \
+        --config ${mon_yaml} \
         $args
 
     cat <<-END_VERSIONS > versions.yml

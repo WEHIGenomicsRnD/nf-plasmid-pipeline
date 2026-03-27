@@ -9,6 +9,8 @@ include { UnpackFastq            } from '../modules/local/unpack_fastq/main'
 include { UnzipFiles             } from '../modules/local/unzip_files/main'
 include { LaunchClonePipe        } from '../modules/local/subpipeline/main'
 include { MergeQCStats           } from '../modules/local/merge_stats/main'
+include { HandOver               } from '../modules/local/handover/main'
+include { SendEmail              } from '../modules/local/email/main'
 
 include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -94,11 +96,11 @@ workflow PLASMIDPIPELINE {
      ch_qc = MergeQCStats(batchnum, qcinput_ch).mergedqc_ch
      ch_versions = ch_versions.mix(MergeQCStats.out.versions)
      }
-     else if(params.handover) {
-         ch_qc = Channel.fromPath("${params.outdir}/mergeqcstats/merged_stats.txt" ,checkIfExists: true)
+     else {
+         ch_qc = Channel.fromPath("${params.outdir}/mergeqcstats/*QCFile.txt" ,checkIfExists: true)
          plasmid_res_ch = Channel.fromPath("${params.outdir}/createsamplesheet/*Pl*id_Batch*.txt" ,checkIfExists: true)
-         plasmid_res_ch
-                 .map { file ->
+        
+         plasmid_res_ch.map { file ->
                         def batch = (file.name =~ /(Batch\d+)/)[0][1]
                         def rdate = file.name.split('_')[0]
                         tuple(file, batch, rdate)
@@ -114,8 +116,16 @@ workflow PLASMIDPIPELINE {
                       tuple(email, row[2], batch, rdate)
                     }
                   }.filter { tup ->
-                       sel_users.any{u -> tup[1].contains(u)}
-                  }.view()
+                       sel_users.any{u -> tup[0].contains(u)}
+                  }.set{copy_ch}
+        copy_ch.view()
+
+        if (params.only_copy){
+             HandOver(copy_ch)
+        }else{
+             HandOver(copy_ch)
+             SendEmail(plasmid_res_ch,params.outdir)  
+        } 
 
      }
 
