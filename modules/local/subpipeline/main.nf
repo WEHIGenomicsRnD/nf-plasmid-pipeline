@@ -27,7 +27,7 @@ process LaunchClonePipe{
          --out_dir ${subdir}/result${num} \
          --db_directory ${params.db_dir} \
          --override_basecaller_cfg ${params.model} \
-         -c ${projectDir}/slurm_plasmid.config \
+         -c ${projectDir}/conf/slurm_plasmid.config \
                -profile slurm \
          $args
 

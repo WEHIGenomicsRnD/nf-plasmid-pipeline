@@ -58,4 +58,9 @@ nextflow run WEHIGenomicsRnD/nf-plasmid-pipeline -profile apptainer --inpdir $in
 The following modules need to be loaded before running the pipeline
 ```
     module load nextflow
-``` 
+```
+
+## Output ##
+
+The pipeline will generate a html report stating the QC status of each sample for all the users.
+This can be find under "$outdir/mergeqcstats/*.html" 
