@@ -25,6 +25,64 @@
         }
       }
     },
+    "pipeline_parameters": {
+      "title": "Additional Parameters",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "pip_ver": {
+          "type": "string",
+          "default": "v1.8.0",
+          "description": "wf-clone validation pipeline version"
+        },
+        "db_dir": {
+          "type": "string",
+          "default": "/vast/projects/genomics_cache/ref/wf-clone-validation-db",
+          "hidden": true
+        },
+        "model": {
+          "type": "string",
+          "default": "dna_r10.4.1_e8.2_400bps_sup@v4.2.0",
+          "hidden": true
+        },
+        "subdir": {
+          "type": "string",
+          "default": "1,2,3",
+          "description": "Each sample will run 3 times .Subfolder name for each sample"
+        },
+        "conda_env_location": {
+          "type": "string",
+          "default": "/vast/projects/genomics_cache/shared_conda"
+        },
+        "only_copy": {
+          "type": "boolean",
+          "description": "To only share data via Handover. If turned on, email will not be sent to the researchers"
+        },
+        "res_name": {
+          "type": "string",
+          "description": "Relaunch analysis, share data for specific users"
+        },
+        "pipeline_type": {
+          "type": "string",
+          "default": "new",
+          "description": "Launching new pipeline. The relaunch option will run pipeline for specific users"
+        },
+        "handover": {
+          "type": "boolean",
+          "description": "Share data via Hnadover"
+        },
+        "handover_path": {
+          "type": "string",
+          "default": "/stornext/General/scratch/handover",
+          "hidden": true
+        },
+        "config_yaml": {
+          "type": "string",
+          "default": "/vast/scratch/users/gupta.i/nf-plasmid-pipeline/nf-core/nf-core-plasmidpipeline/nf-plasmid-pipeline/conf/monday.yaml",
+          "hidden": true
+        }
+      }
+    },
     "generic_options": {
       "title": "Generic options",
       "type": "object",
@@ -91,60 +149,10 @@
       "$ref": "#/definitions/input_output_options"
     },
     {
+      "$ref": "#/definitions/pipeline_parameters"
+    },
+    {
       "$ref": "#/definitions/generic_options"
     }
-  ],
-  "properties": {
-    "pip_ver": {
-      "type": "string",
-      "default": "v1.8.0",
-      "description": "wf-clone validation pipeline version"
-    },
-    "db_dir": {
-      "type": "string",
-      "default": "/vast/projects/genomics_cache/ref/wf-clone-validation-db",
-      "hidden": true
-    },
-    "model": {
-      "type": "string",
-      "default": "dna_r10.4.1_e8.2_400bps_sup@v4.2.0",
-      "hidden": true
-    },
-    "subdir": {
-      "type": "string",
-      "default": "1,2,3",
-      "description": "Each sample will run 3 times .Subfolder name for each sample"
-    },
-    "conda_env_location": {
-      "type": "string",
-      "default": "/vast/projects/genomics_cache/shared_conda"
-    },
-    "only_copy": {
-      "type": "boolean",
-      "description": "To only share data via Handover. If turned on, email will not be sent to the researchers"
-    },
-    "res_name": {
-      "type": "string",
-      "description": "Relaunch analysis, share data for specific users"
-    },
-    "pipeline_type": {
-      "type": "string",
-      "default": "new",
-      "description": "Launching new pipeline. The relaunch option will run pipeline for specific users"
-    },
-    "handover": {
-      "type": "boolean",
-      "description": "Share data via Hnadover"
-    },
-    "handover_path": {
-      "type": "string",
-      "default": "/stornext/General/scratch/handover",
-      "hidden": true
-    },
-    "config_yaml": {
-      "type": "string",
-      "default": "/vast/scratch/users/gupta.i/nf-plasmid-pipeline/nf-core/nf-core-plasmidpipeline/nf-plasmid-pipeline/conf/monday.yaml",
-      "hidden": true
-    }
-  }
+  ]
 }
