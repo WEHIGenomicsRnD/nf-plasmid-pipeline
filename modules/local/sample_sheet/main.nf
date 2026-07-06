@@ -1,5 +1,6 @@
 process CreateSampleSheet {
-    label = 'CreateSampleSheet'
+    tag 'CreateSampleSheet'
+    label 'process_medium'
 
 
     container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:d17f0440b85f9b65'

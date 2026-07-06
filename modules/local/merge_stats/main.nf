@@ -1,5 +1,6 @@
 process MergeQCStats {
-    label = 'MergeQCStats'
+    tag 'MergeQCStats'
+    label 'process_medium'
 
 
 //    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:d17f0440b85f9b65'

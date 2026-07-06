@@ -1,5 +1,6 @@
 process SendEmail {
-    label 'SendEmail'
+    tag 'SendEmail'
+    label 'process_medium'
 
 
 //    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:825ddd073161283c'

@@ -16,6 +16,9 @@ A [Nextflow](https://www.nextflow.io/) pipeline for validating and generating pl
 - The data is shared to users via HandOver
 - The sample QC file having QC status for each sample is shared via email.
 
+## Nextflow Version
+Nextflow < 25.04.2
+
 
 ## Installation ##
 
@@ -41,6 +44,11 @@ Configuration parameters can be found in the `nextflow.config` file.
 ## Testing (command line) ##
 
 To test the pipeline
+
+
+## Set up the environment
+conda env create -f ..test_build/test_env.yml
+conda activate test_env
 
 - Pull nf-plasmid-pipeline from Github
 - python3 .test_build/create_testdata.py (It will create test_data folder in the current directory)

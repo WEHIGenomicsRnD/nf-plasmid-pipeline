@@ -1,5 +1,5 @@
 process LaunchClonePipe{
-    label "Clone_Pipeline"
+    "label 'process_medium'"
 
     tag "${ssheet.baseName}-${num}"
 

@@ -1,5 +1,6 @@
 process UnzipFiles{
-   label "Unzip_Files"
+   tag "Unzip_Files"
+   label 'process_medium'
 
    input:
    val(fpath)

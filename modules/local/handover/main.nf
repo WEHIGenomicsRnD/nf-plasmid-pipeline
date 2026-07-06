@@ -1,5 +1,6 @@
 process HandOver{
-   label = "HandOver"
+   tag 'HandOver'
+   label 'process_medium'
 
    publishDir params.outdir, mode: 'copy'
 

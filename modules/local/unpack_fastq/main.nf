@@ -1,5 +1,6 @@
 process UnpackFastq{
-   label "Unpack_Fastq"
+   tag "Unpack_Fastq"
+   label 'process_medium'
 
    input:
    path(fpath)
