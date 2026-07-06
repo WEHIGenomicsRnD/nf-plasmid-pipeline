@@ -21,6 +21,7 @@ process LaunchClonePipe{
 
     """
 
+     module load nextflow/24.04.2
      rm -rf ${subdir}/result${num}
 
      # Isolate sub-pipeline from Seqera environment
