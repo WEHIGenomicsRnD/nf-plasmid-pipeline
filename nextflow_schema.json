@@ -23,6 +23,7 @@
       "type": "string",
       "description": "Input Directory where Plasmid sample sheet and reference files are located as zipped/tar file"
        }
+    
     },
 
     "generic_options": {
@@ -84,6 +85,7 @@
           "hidden": true
         }
       }
+    }
     }
   },
   "allOf": [
