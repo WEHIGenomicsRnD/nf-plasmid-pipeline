@@ -18,14 +18,13 @@
           "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
           "fa_icon": "fas fa-folder-open"
         },
-     
-       "inpdir": {
-      "type": "string",
-      "description": "Input Directory where Plasmid sample sheet and reference files are located as zipped/tar file"
-       }
-    
+        "inpdir": {
+          "type": "string",
+          "required": ["outdir"],
+          "description": "Input Directory where Plasmid sample sheet and reference files are located as zipped/tar file"
+        }
+      }
     },
-
     "generic_options": {
       "title": "Generic options",
       "type": "object",
@@ -86,17 +85,10 @@
         }
       }
     }
-    }
   },
   "allOf": [
     {
       "$ref": "#/definitions/input_output_options"
-    },
-    {
-      "$ref": "#/definitions/institutional_config_options"
-    },
-    {
-      "$ref": "#/definitions/max_job_request_options"
     },
     {
       "$ref": "#/definitions/generic_options"
