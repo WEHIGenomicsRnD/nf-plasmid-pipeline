@@ -41,8 +41,6 @@ process LaunchClonePipe{
          -name clone-validation-${num} \
          -c ${projectDir}/conf/slurm_plasmid.config \
                -profile slurm \
-         -ansi-log false \
-         -offline \
          $args
 
      cp ${subdir}/result${num}/sample_QC.txt ${sname}-sample_QC.txt
