@@ -25,9 +25,9 @@ process LaunchClonePipe{
      rm -rf ${subdir}/result${num}
 
      # Isolate sub-pipeline from Seqera environment
-      unset TOWER_ACCESS_TOKEN
-      unset TOWER_WORKFLOW_ID
-      unset NXF_OPTS
+#      unset TOWER_ACCESS_TOKEN
+#      unset TOWER_WORKFLOW_ID
+#      unset NXF_OPTS
 
       export NXF_HOME=\${PWD}/.nextflow_clone
       export NXF_WORK=\${PWD}/.nf_work_clone
