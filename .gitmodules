@@ -1,0 +1,3 @@
+[submodule "subworkflows/wf-clone-validation"]
+	path = subworkflows/wf-clone-validation
+	url = git@github.com:WEHIGenomicsRnD/wf-clone-validation-v1.8.git

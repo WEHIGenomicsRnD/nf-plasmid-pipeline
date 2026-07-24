@@ -29,14 +29,13 @@ process LaunchClonePipe{
 #      unset TOWER_WORKFLOW_ID
 #      unset NXF_OPTS
 
-      export NXF_HOME=\${PWD}/.nextflow_clone
-      export NXF_WORK=\${PWD}/.nf_work_clone
+#      export NXF_HOME=\${PWD}/.nextflow_clone
+#      export NXF_WORK=\${PWD}/.nf_work_clone
 
 #     nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
    
-     nextflow log ${subdir}/result${num}/.nextflow.log run WEHIGenomicsRnD/wf-clone-validation-v1.8 \
+     nextflow run ${projectDir}/subworkflows/wf-clone-validation  \
          --fastq ${fpath}/fastq_pass \
-         -w ${subdir}/result${num}/work \
          --sample_sheet ${ssheet} \
          --out_dir ${subdir}/result${num} \
          --db_directory ${params.db_dir} \
