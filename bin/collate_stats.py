@@ -63,6 +63,7 @@ def bg_color(val):
 def main():
     args = parse_args()
 
+    cnt=1
     snames=[]
     groups = defaultdict(list)
     out=open("merged_stats.txt",'w')
@@ -70,21 +71,26 @@ def main():
     for count_file in args.qc_files:
         sname=os.path.basename(count_file).strip().split("-")[0]
         if sname in snames:
+            cnt=cnt+1
             groups[sname]=merge_files(count_file,groups[sname])
         else:
             groups[sname]= pd.DataFrame()
             snames.append(sname)
             groups[sname]=merge_files(count_file,groups[sname])
-
-
+   
+    print(f"{cnt}")
     for i, grp in enumerate(groups):
        empty_row = pd.DataFrame([[None]*len(groups[grp].columns)], columns=groups[grp].columns)
        new_grp = pd.concat([groups[grp], empty_row], ignore_index=True)
        new_grp.to_csv(out, sep='\t', index=False)
        new_df = groups[grp].reset_index(drop=True)
 
+       print(f"{new_df}")
+       if cnt >1:
+          run_cols = new_df.columns[[5,7,9]]
+       else:
+          run_cols = new_df.columns[[5]]
 
-       run_cols = new_df.columns[[5,7,9]]
        cols_to_int = new_df.columns[[2, 3,4]]
        new_df[cols_to_int] = new_df[cols_to_int].astype(int)
 

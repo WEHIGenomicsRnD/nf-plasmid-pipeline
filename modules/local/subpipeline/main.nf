@@ -18,7 +18,7 @@ process LaunchClonePipe{
     script:
     def args = task.ext.args ?: ''
     def sname = "${ssheet.baseName}-${num}"
-
+    def abs_path = file("${projectDir}/subworkflows/wf-clone-validation").toAbsolutePath().toString()
     """
 
      module load nextflow/24.04.2
@@ -28,13 +28,13 @@ process LaunchClonePipe{
 #      unset TOWER_ACCESS_TOKEN
 #      unset TOWER_WORKFLOW_ID
 #      unset NXF_OPTS
-
+#      export NXF_OPTS="-cp \${NXF_HOME}/lib/*"
 #      export NXF_HOME=\${PWD}/.nextflow_clone
 #      export NXF_WORK=\${PWD}/.nf_work_clone
 
 #     nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
-   
-     nextflow run ${projectDir}/subworkflows/wf-clone-validation  \
+  
+     nextflow run ${abs_path}  \
          --fastq ${fpath}/fastq_pass \
          --sample_sheet ${ssheet} \
          --out_dir ${subdir}/result${num} \
