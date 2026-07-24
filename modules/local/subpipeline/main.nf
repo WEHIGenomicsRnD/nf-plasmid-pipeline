@@ -34,9 +34,8 @@ process LaunchClonePipe{
 
 #     nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
    
-     nextflow run WEHIGenomicsRnD/wf-clone-validation-v1.8 \
+     nextflow log ${subdir}/result${num}/.nextflow.log run WEHIGenomicsRnD/wf-clone-validation-v1.8 \
          --fastq ${fpath}/fastq_pass \
-         -log ${subdir}/result${num}/.nextflow.log \
          -w ${subdir}/result${num}/work \
          --sample_sheet ${ssheet} \
          --out_dir ${subdir}/result${num} \
