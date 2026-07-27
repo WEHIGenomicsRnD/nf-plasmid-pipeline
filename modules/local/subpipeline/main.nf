@@ -18,25 +18,25 @@ process LaunchClonePipe{
     script:
     def args = task.ext.args ?: ''
     def sname = "${ssheet.baseName}-${num}"
-    def abs_path = file("${projectDir}/subworkflows/wf-clone-validation").toAbsolutePath().toString()
+
     """
 
      module load nextflow/24.04.2
      rm -rf ${subdir}/result${num}
 
      NXF_SANDBOX="${subdir}/.nxf_cache_sample_${num}"
-     rm -rf "\${NXF_SANDBOX}"
-     mkdir -p "\${NXF_SANDBOX}/nxf_home"
-     mkdir -p "\${NXF_SANDBOX}/work"
+     rm -rf \${NXF_SANDBOX}
+     mkdir -p \${NXF_SANDBOX}/nxf_home
+     mkdir -p \${NXF_SANDBOX}/work
 #     nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
 
-     export NXF_HOME="\${NXF_SANDBOX}/nxf_home"
-     export NXF_LOG_FILE="\${NXF_SANDBOX}/engine_internal.log"
+     export NXF_HOME=\${NXF_SANDBOX}/nxf_home
+     export NXF_LOG_FILE=\${NXF_SANDBOX}/engine_internal.log
   
      rm -rf ${subdir}/result${num}
 
      nextflow run WEHIGenomicsRnD/wf-clone-validation-v1.8  \
-         -w ${NXF_SANDBOX}/work \
+         -w \${NXF_SANDBOX}/work \
          --fastq ${fpath}/fastq_pass \
          --sample_sheet ${ssheet} \
          --out_dir ${subdir}/result${num} \
@@ -49,7 +49,7 @@ process LaunchClonePipe{
 
      cp ${subdir}/result${num}/sample_QC.txt ${sname}-sample_QC.txt
 
-     rm -rf "\${NXF_SANDBOX}"
+     rm -rf \${NXF_SANDBOX}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
