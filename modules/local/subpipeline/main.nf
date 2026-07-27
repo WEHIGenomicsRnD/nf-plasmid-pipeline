@@ -24,17 +24,19 @@ process LaunchClonePipe{
      module load nextflow/24.04.2
      rm -rf ${subdir}/result${num}
 
-     # Isolate sub-pipeline from Seqera environment
-#      unset TOWER_ACCESS_TOKEN
-#      unset TOWER_WORKFLOW_ID
-#      unset NXF_OPTS
-#      export NXF_OPTS="-cp \${NXF_HOME}/lib/*"
-#      export NXF_HOME=\${PWD}/.nextflow_clone
-#      export NXF_WORK=\${PWD}/.nf_work_clone
-
+     NXF_SANDBOX="${subdir}/.nxf_cache_sample_${num}"
+     rm -rf "\${NXF_SANDBOX}"
+     mkdir -p "\${NXF_SANDBOX}/nxf_home"
+     mkdir -p "\${NXF_SANDBOX}/work"
 #     nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
+
+     export NXF_HOME="\${NXF_SANDBOX}/nxf_home"
+     export NXF_LOG_FILE="\${NXF_SANDBOX}/engine_internal.log"
   
-     nextflow run ${abs_path}  \
+     rm -rf ${subdir}/result${num}
+
+     nextflow run WEHIGenomicsRnD/wf-clone-validation-v1.8  \
+         -w ${NXF_SANDBOX}/work \
          --fastq ${fpath}/fastq_pass \
          --sample_sheet ${ssheet} \
          --out_dir ${subdir}/result${num} \
@@ -46,6 +48,8 @@ process LaunchClonePipe{
          $args
 
      cp ${subdir}/result${num}/sample_QC.txt ${sname}-sample_QC.txt
+
+     rm -rf "\${NXF_SANDBOX}"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
