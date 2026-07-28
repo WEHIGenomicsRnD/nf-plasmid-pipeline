@@ -18,34 +18,11 @@ process LaunchClonePipe{
     script:
     def args = task.ext.args ?: ''
     def sname = "${ssheet.baseName}-${num}"
-    def pipelineCacheDir = "${projectDir}/.nxf_shared_pipeline_assets"
 
     """
 
      module load nextflow/24.04.2
      rm -rf ${subdir}/result${num}
-
-     export NXF_ASSETS="${pipelineCacheDir}"
-     mkdir -p "\${NXF_ASSETS}"
-
-     echo "Checking pipeline asset cache..."
-     LOCK_DIR="\${NXF_ASSETS}/repository.lock"
-
-     while ! mkdir "\${LOCK_DIR}" 2>/dev/null; do
-        echo "Another sample job is pulling the repository. Waiting 10 seconds..."
-        sleep 10
-    done
-
-    # --- CRITICAL SECTION: Only one SLURM job is here at a time ---
-    if [ ! -d "\${NXF_ASSETS}/WEHIGenomicsRnD/wf-clone-validation-v1.8" ]; then
-        echo "Cache miss. Safely downloading pipeline repository..."
-        nextflow pull WEHIGenomicsRnD/wf-clone-validation-v1.8
-    else
-        echo "Cache hit! Using existing local pipeline code."
-    fi
-
-    # Release the lock by deleting the directory
-    rmdir "\${LOCK_DIR}"
 
 
      NXF_SANDBOX="${subdir}/.nxf_cache_sample_${num}"
@@ -57,9 +34,8 @@ process LaunchClonePipe{
      export NXF_HOME=\${NXF_SANDBOX}/nxf_home
      export NXF_LOG_FILE=\${NXF_SANDBOX}/engine_internal.log
   
-     rm -rf ${subdir}/result${num}
 
-     nextflow run WEHIGenomicsRnD/wf-clone-validation-v1.8  \
+     nextflow run ${projectDir}/subpipelines/wf-clone-validation  \
          -w \${NXF_SANDBOX}/work \
          --fastq ${fpath}/fastq_pass \
          --sample_sheet ${ssheet} \
