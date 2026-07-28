@@ -1,0 +1,4 @@
+reports:
+  "mergeqcstats/*.html":
+    display: "Plasmid Sample Report"
+    mimeType: "text/html"
