@@ -1,0 +1,3 @@
+[submodule "subpipelines/wf-clone-validation"]
+	path = subpipelines/wf-clone-validation
+	url = https://github.com/WEHIGenomicsRnD/wf-clone-validation-v1.8.git
