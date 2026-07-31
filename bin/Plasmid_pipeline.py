@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import zipfile
 import re
+import sys
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 
@@ -107,6 +108,7 @@ def process_samplesheet(inp_sheet,ref_folder):
         line="\n".join(set(results['error']))
         print(f"Printing Error")
         print(f"{line}")
+        sys.exit(1)
     else:
         script_path=os.getcwd()
         cmd=f"sh {script_path}/Plasmid_workflow.sh {outdir}"

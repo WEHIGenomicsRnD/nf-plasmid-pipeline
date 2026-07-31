@@ -88,16 +88,17 @@ def main():
        print(f"{new_df}")
        if cnt >1:
           run_cols = new_df.columns[[5,7,9]]
+          cols_to_int = new_df.columns[[2, 3,4,6,8]]
        else:
           run_cols = new_df.columns[[5]]
+          cols_to_int = new_df.columns[[2, 3,4]]
 
-       cols_to_int = new_df.columns[[2, 3,4]]
        new_df[cols_to_int] = new_df[cols_to_int].astype(int)
 
        styled_df = (
             new_df.style
 #            .applymap(bg_color, subset=run_cols)
-            .set_table_attributes('style="border-collapse:collapse"')
+            .set_table_attributes('style="border-collapse:collapse; width:100%;"')
             .set_table_styles([
           {'selector': 'table', 'props': [('table-layout', 'fixed'),('width', '1800px')]},
           {'selector': 'td', 'props': [('border', '1px solid black'),('overflow-wrap', 'break-word'),('width', '200px'),('padding', '2px')]},
