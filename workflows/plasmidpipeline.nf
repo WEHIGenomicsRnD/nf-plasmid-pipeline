@@ -54,7 +54,7 @@ workflow PLASMIDPIPELINE {
          plasmid_res_ch = CreateSampleSheet.out.plasmidtxt_ch
 
      } else if (params.pipeline_type == "relaunch" && params.res_name != ""){
-         Channel.fromPath("${params.outdir}/*.csv")
+         Channel.fromPath("${params.outdir}/createsamplesheet/*.csv")
              .filter { csv ->
                      sel_users.any{ u -> csv.name.contains(u) }
              }.set{rawsheet_ch}
@@ -124,7 +124,7 @@ workflow PLASMIDPIPELINE {
              HandOver(copy_ch)
         }else{
              HandOver(copy_ch)
-             SendEmail(plasmid_res_ch,params.outdir)  
+             SendEmail(plasmid_res_ch,params.outdir,params.res_name)  
         } 
 
      }

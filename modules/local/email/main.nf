@@ -9,6 +9,7 @@ process SendEmail {
     input:
     val infile
     val outpath
+    val res_name
 
     output:
     path  "versions.yml"   , emit: versions
@@ -18,7 +19,6 @@ process SendEmail {
 
     script:
     def args = task.ext.args ?: ''
-    def res_name  = params.res_name ? params.res_name : ""
     def mon_yaml  = params.config_yaml ? params.config_yaml : ""
 
     """

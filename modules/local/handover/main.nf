@@ -13,12 +13,14 @@ process HandOver{
    script:
    def args = task.ext.args ?: ''
    def handover_path = params.handover_path ? params.handover_path : ""
+   def outdir = params.outdir ? params.outdir : ""
 
    """
-   echo "rsync -av ${rundate}_${mail}_v1.8.0/${resfolder}/* ${handover_path}/${mail}_${rundate}-Plasmid${batch}/"
-   echo "chmod 700 ${handover_path}/${mail}_${rundate}-Plasmid${batch}/"
-   echo "tar cvzf ${rundate}_${mail}_v1.8.0.tar.gz ${rundate}_${mail}_v1.8.0/${resfolder}/"
-   echo "rsync -av ${rundate}_${mail}_v1.8.0.tar.gz /stornext/Projects/promethion/promethion_access/lab_bowden/G000309_plasmid-sequencing/long_term/analysis/"
+   cd $outdir
+   rsync -av ${outdir}/${rundate}_${mail}_v1.8.0/${resfolder}/* ${handover_path}/${mail}_${rundate}-Plasmid${batch}/
+   chmod 700 ${handover_path}/${mail}_${rundate}-Plasmid${batch}/
+   tar cvzf ${outdir}/${rundate}_${mail}_v1.8.0.tar.gz ${outdir}/${rundate}_${mail}_v1.8.0/${resfolder}/
+   rsync -av ${outdir}/${rundate}_${mail}_v1.8.0.tar.gz /stornext/Projects/promethion/promethion_access/lab_bowden/G000309_plasmid-sequencing/long_term/analysis/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
