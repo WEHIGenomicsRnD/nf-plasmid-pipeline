@@ -4,7 +4,7 @@ process SendEmail {
 
 
 //    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:825ddd073161283c'
-    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:4f750799cf79af84'
+//    container 'community.wave.seqera.io/library/natsort_pandas_numpy_openpyxl_pruned:4f750799cf79af84'
 
     input:
     val infile
@@ -20,6 +20,8 @@ process SendEmail {
     script:
     def args = task.ext.args ?: ''
     def mon_yaml  = params.config_yaml ? params.config_yaml : ""
+    def email_cc = params.email_cc ? params.email_cc : ""
+    def email_from   = params.email_from ? params.email_from : ""
 
     """
 
@@ -28,6 +30,8 @@ process SendEmail {
         --inpfile ${infile} \
         --resdir ${outpath} \
         --config ${mon_yaml} \
+        --email_cc "${email_cc}" \
+        --email_from ${email_from} \
         $args
 
     cat <<-END_VERSIONS > versions.yml

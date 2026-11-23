@@ -63,8 +63,9 @@ def process_samplesheet(inp_sheet,ref_folder):
 #    ss['Researcher'] = ss['Researcher Name'].str.split().apply(lambda x: x[-1] + x[0][:2])
 #    researchers = np.unique(ss.Researcher)
     ss['Researcher'] = ss['Researcher Name'].map(lambda x: x.split(' ')[-1])
+    ss['Email'] = ss['Researcher Email']
     temp_arr= ss[['Researcher','Researcher Email']]
-    df_unique = temp_arr.drop_duplicates(subset=["Researcher"])
+    df_unique = temp_arr.drop_duplicates(subset=["Researcher Email"])
     print(df_unique)
 
     ss['Size'] = ss['Size'].map(lambda x: re.sub('\s*bp', '', re.sub('\s*kb', '000', str(x))))      # convert all sizes to integers
@@ -91,18 +92,18 @@ def process_samplesheet(inp_sheet,ref_folder):
     new_row_names = {'Barcode': 'barcode', 'Sample ID': 'alias', 'Size': 'approx_size', 'Reference File Name': 'full_reference', 'QC method' : 'qc_method' }           # rename rows
     ss = ss.rename(columns=new_row_names)
 
-    for researcher in df_unique['Researcher'].values:
-       uid=df_unique.loc[df_unique['Researcher'] == researcher, 'Researcher Email'].iloc[0].split('@')[0]
+    for researcher in df_unique['Researcher Email'].values:
+       uid=df_unique.loc[df_unique['Researcher Email'] == researcher, 'Researcher Email'].iloc[0].split('@')[0]
        outfile = f'{date}_{uid}.csv'
 
-       if (ss.loc[ss.Researcher == researcher, 'full_reference'] == '').all():
-           write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
+       if (ss.loc[ss.Email  == researcher, 'full_reference'] == '').all():
+           write_sheet(ss.loc[(ss.Email == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
        else:
-           if len(ss.loc[(ss.Researcher == researcher) & (ss.full_reference != '')]):
-               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference != ''), ['barcode', 'alias', 'approx_size','full_reference','qc_method']],researcher,outfile)
-           if len(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == '')]):
+           if len(ss.loc[(ss.Email == researcher) & (ss.full_reference != '')]):
+               write_sheet(ss.loc[(ss.Email == researcher) & (ss.full_reference != ''), ['barcode', 'alias', 'approx_size','full_reference','qc_method']],researcher,outfile)
+           if len(ss.loc[(ss.Email == researcher) & (ss.full_reference == '')]):
                outfile = f'{date}_{researcher}_withoutref.csv'
-               write_sheet(ss.loc[(ss.Researcher == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
+               write_sheet(ss.loc[(ss.Email == researcher) & (ss.full_reference == ''), ['barcode', 'alias', 'approx_size','qc_method']],researcher,outfile)
 
     if int(len(set(results['error']))) >=1:
         line="\n".join(set(results['error']))
